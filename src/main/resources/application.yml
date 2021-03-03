@@ -1,0 +1,54 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /spring-boot-mybatis-tk
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dev?useUnicode=true&useSSL=false&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 10
+      idle-timeout: 60000
+      max-lifetime: 59990
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+      validation-timeout: 5000
+      pool-name: HikariPool-test
+      auto-commit: true
+
+#日志级别
+logging:
+  level:
+    com.bingye.persistence: debug
+
+#mybatis配置
+mybatis:
+  type-aliases-package: com.bingye.domain.po
+  mapper-locations: classpath:mapper/*.xml
+
+#通用mapper配置
+mapper:
+  #支持自增主键的数据库：主键取回方式
+  identity: MYSQL
+  #实体与表映射风格
+  style: camelhumpAndUppercase
+  #安全删除和更新
+  safe-delete: true
+  safe-update: true
+  #设置 true 时，参数中会增加 javaType 设置，如 {id, javaType=java.lang.Long}。在 <resultMap> 中也会设置 javaType 属性。
+  #如果不设置 javaType，低版本的 MyBatis 会认为 id 的类型为 Object。升级 MyBatis 到 3.4.0+ 最好。
+  #使用 useJavaType=true 后，调用 ByPrimaryKey 类的方法时，需要按照实体中对应的类型来指定，例如主键类型为 Long 时，必须 mapper.selectByPrimaryKey(1L)。
+  use-java-type: true
+  #oracle 主键生成时候需要设置序列生成排序
+  before: true
+  not-empty: false
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

@@ -1,0 +1,6 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bingye.persistence.CountryMapper">
+    <select id="findByCountrynameInXml" resultType="com.bingye.domain.po.Country">
+        select * from country where countryname = #{countryname}
+    </select>
+</mapper>
